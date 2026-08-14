@@ -1,0 +1,5 @@
+northstar-support-dashboard/
+__pycache__/
+*.db
+misc/
+tests/
