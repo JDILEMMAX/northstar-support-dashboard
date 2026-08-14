@@ -19,7 +19,17 @@ function openTab(evt, tabName) {
 
 // TODO: oswaldsly (Silvya) - Implement UI error handling here. Display a red alert card if the API returns a 404 or record not found.
 function displayError(elementId, message) {
-    // Write your code here to show an error message in the DOM
+    const element = document.getElementById(elementId);
+
+    if (!element) {
+        return;
+    }
+
+    element.classList.remove("hidden");
+    element.classList.remove("result-card");
+    element.classList.add("error-card");
+
+    element.textContent = message;
 }
 
 function displayResult(elementId, data) {

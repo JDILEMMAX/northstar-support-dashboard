@@ -21,28 +21,52 @@
 
         <div id="TrackOrder" class="tab-content active">
             <h2>Track Your Order</h2>
-            <div class="input-group">
-                <input type="text" id="orderIdInput" placeholder="Enter Order ID">
-                <button onclick="fetchOrderStatus()">Track</button>
-            </div>
+            <form class="ticket-form" onsubmit="event.preventDefault(); fetchOrderStatus();">
+    <label for="orderIdInput">Order ID</label>
+    <div class="input-group">
+        <input
+            type="text"
+            id="orderIdInput"
+            placeholder="Enter Order ID"
+            required
+        >
+        <button type="submit">Track</button>
+    </div>
+</form>
             <div id="orderResult" class="result-card hidden"></div>
         </div>
 
         <div id="Returns" class="tab-content hidden">
             <h2>Process a Return</h2>
-            <div class="input-group">
-                <input type="text" id="returnOrderIdInput" placeholder="Enter Order ID">
-                <button onclick="fetchReturnStatus()">Check Status</button>
-            </div>
+<form class="ticket-form" onsubmit="event.preventDefault(); fetchReturnStatus();">
+    <label for="returnOrderIdInput">Order ID</label>
+    <div class="input-group">
+        <input
+            type="text"
+            id="returnOrderIdInput"
+            placeholder="Enter Order ID"
+            required
+        >
+        <button type="submit">Check Status</button>
+    </div>
+</form>
             <div id="returnResult" class="result-card hidden"></div>
         </div>
 
         <div id="StockCheck" class="tab-content hidden">
             <h2>Check Stock Availability</h2>
-            <div class="input-group">
-                <input type="text" id="skuInput" placeholder="Enter Product SKU">
-                <button onclick="fetchStock()">Check</button>
-            </div>
+<form class="ticket-form" onsubmit="event.preventDefault(); fetchStock();">
+    <label for="skuInput">Product SKU</label>
+    <div class="input-group">
+        <input
+            type="text"
+            id="skuInput"
+            placeholder="Enter Product SKU"
+            required
+        >
+        <button type="submit">Check</button>
+    </div>
+</form>
             <div id="stockResult" class="result-card hidden"></div>
         </div>
     </div>

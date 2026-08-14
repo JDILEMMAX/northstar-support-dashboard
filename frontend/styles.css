@@ -250,3 +250,22 @@ button:not(.tab-button):hover::before {
     30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
     40%, 60% { transform: translate3d(4px, 0, 0); }
 }
+.ticket-form {
+    width: 100%;
+}
+
+.ticket-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #a0a0b0;
+    font-weight: 500;
+}
+
+.ticket-form input:invalid {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ticket-form input:valid:focus {
+    border-color: var(--accent-color);
+}
