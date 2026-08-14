@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northstar Support</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Northstar Support</h1>
+            <p>How can we help you today?</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'TrackOrder')">Track Order</button>
+            <button class="tab-button" onclick="openTab(event, 'Returns')">Returns</button>
+            <button class="tab-button" onclick="openTab(event, 'StockCheck')">Stock Check</button>
+        </div>
+
+        <div id="TrackOrder" class="tab-content active">
+            <h2>Track Your Order</h2>
+            <div class="input-group">
+                <input type="text" id="orderIdInput" placeholder="Enter Order ID">
+                <button onclick="fetchOrderStatus()">Track</button>
+            </div>
+            <div id="orderResult" class="result-card hidden"></div>
+        </div>
+
+        <div id="Returns" class="tab-content hidden">
+            <h2>Process a Return</h2>
+            <div class="input-group">
+                <input type="text" id="returnOrderIdInput" placeholder="Enter Order ID">
+                <button onclick="fetchReturnStatus()">Check Status</button>
+            </div>
+            <div id="returnResult" class="result-card hidden"></div>
+        </div>
+
+        <div id="StockCheck" class="tab-content hidden">
+            <h2>Check Stock Availability</h2>
+            <div class="input-group">
+                <input type="text" id="skuInput" placeholder="Enter Product SKU">
+                <button onclick="fetchStock()">Check</button>
+            </div>
+            <div id="stockResult" class="result-card hidden"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
