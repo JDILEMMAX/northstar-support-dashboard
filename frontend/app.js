@@ -29,17 +29,44 @@ function displayResult(elementId, data) {
 // TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
 async function fetchOrderStatus() {
     const orderId = document.getElementById('orderIdInput').value;
-    // Write your fetch code here targeting /api/orders/{orderId}
+    try {
+        const response = await fetch(`http://localhost:8000/api/orders/${orderId}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        displayResult('orderResult', data);
+    } catch (error) {
+        displayError('orderResult', error.message);
+    }
 }
 
 // TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
 async function fetchReturnStatus() {
     const returnOrderId = document.getElementById('returnOrderIdInput').value;
-    // Write your fetch code here targeting /api/returns/{orderId}
+    try {
+        const response = await fetch(`http://localhost:8000/api/returns/${returnOrderId}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        displayResult('returnResult', data);
+    } catch (error) {
+        displayError('returnResult', error.message);
+    }
 }
 
 // TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
 async function fetchStock() {
     const sku = document.getElementById('skuInput').value;
-    // Write your fetch code here targeting /api/stock/{sku}
+    try {
+        const response = await fetch(`http://localhost:8000/api/stock/${sku}`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        const data = await response.json();
+        displayResult('stockResult', data);
+    } catch (error) {
+        displayError('stockResult', error.message);
+    }
 }
