@@ -1,7 +1,9 @@
 import sqlite3
 import os
+from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from .models import OrderStatus
 
 app = FastAPI(title="Northstar Support API")
@@ -41,3 +43,15 @@ def get_return(order_id: str):
 @app.get("/api/stock/{sku}")
 def get_stock(sku: str):
     return {"message": "Endpoint not implemented yet"}
+class ReturnRequest(BaseModel):
+    return_id: str
+    order_id: str
+    reason: str
+    status: str
+    request_date: Optional[str] = None
+
+class StockAvailability(BaseModel):
+    product_id: str
+    product_name: str
+    quantity_available: int
+    in_stock: bool
