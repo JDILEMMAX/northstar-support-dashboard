@@ -8,6 +8,7 @@ class OrderStatus(BaseModel):
     shipping_date: Optional[str] = None
     tracking_number: Optional[str] = None
 
+# TODO: ahmedabdy590-spec (Ahmed) - Define ReturnRequest and StockItem Pydantic models.
 class ReturnRequest(BaseModel):
     return_id: str
     order_id: str
