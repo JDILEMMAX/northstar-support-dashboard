@@ -1,4 +1,3 @@
-// Built by Silvya Atieno (oswaldsly) & Peter Kuria (peakaykush) - Frontend UI & Fetch Logic
 function openTab(evt, tabName) {
     let i, tabcontent, tablinks;
     
@@ -18,7 +17,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 }
 
-// TODO: oswaldsly (Silvya) - Implement UI error handling here. Display a red alert card if the API returns a 404 or record not found.
+// TODO: oswaldsly (Silvya) - Implement UI error handling.
 function displayError(elementId, message) {
     const element = document.getElementById(elementId);
 
@@ -34,16 +33,44 @@ function displayError(elementId, message) {
 }
 
 function displayResult(elementId, data) {
-    // Write your code here to show a successful result in the DOM
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    element.classList.remove("hidden");
+    element.classList.remove("error-card");
+    element.classList.add("result-card");
+    
+    let html = "";
+    if (data.order_id && data.status && !data.return_id) {
+        html = `<h3>Order: ${data.order_id}</h3>
+                <p><strong>Customer:</strong> ${data.customer_name}</p>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Shipping Date:</strong> ${data.shipping_date || 'N/A'}</p>`;
+        if (data.tracking_number) {
+            html += `<p><strong>Tracking:</strong> ${data.tracking_number}</p>`;
+        }
+    } else if (data.return_id) {
+        html = `<h3>Return: ${data.return_id}</h3>
+                <p><strong>Status:</strong> ${data.status}</p>
+                <p><strong>Reason:</strong> ${data.reason}</p>
+                <p><strong>Date:</strong> ${data.return_date || 'N/A'}</p>`;
+    } else if (data.product_id) {
+        const badge = data.in_stock ? '<span style="color: green;">In Stock</span>' : '<span style="color: red;">Out of Stock</span>';
+        html = `<h3>Product: ${data.product_name}</h3>
+                <p><strong>Price:</strong> $${data.price}</p>
+                <p><strong>Quantity:</strong> ${data.quantity}</p>
+                <p><strong>Availability:</strong> ${badge}</p>`;
+    }
+    element.innerHTML = html;
 }
 
-// TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
+// TODO: peakaykush (Peter) - Write fetch API calls.
 async function fetchOrderStatus() {
     const orderId = document.getElementById('orderIdInput').value;
     try {
         const response = await fetch(`http://localhost:8000/api/orders/${orderId}`);
         if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(`Error ${response.status}`);
         }
         const data = await response.json();
         displayResult('orderResult', data);
@@ -52,13 +79,13 @@ async function fetchOrderStatus() {
     }
 }
 
-// TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
+// TODO: peakaykush (Peter) - Write fetch API calls.
 async function fetchReturnStatus() {
     const returnOrderId = document.getElementById('returnOrderIdInput').value;
     try {
         const response = await fetch(`http://localhost:8000/api/returns/${returnOrderId}`);
         if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(`Error ${response.status}`);
         }
         const data = await response.json();
         displayResult('returnResult', data);
@@ -67,13 +94,13 @@ async function fetchReturnStatus() {
     }
 }
 
-// TODO: peakaykush (Peter) - Write the fetch API call here to connect the UI inputs to the backend routes.
+// TODO: peakaykush (Peter) - Write fetch API calls.
 async function fetchStock() {
     const sku = document.getElementById('skuInput').value;
     try {
         const response = await fetch(`http://localhost:8000/api/stock/${sku}`);
         if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(`Error ${response.status}`);
         }
         const data = await response.json();
         displayResult('stockResult', data);

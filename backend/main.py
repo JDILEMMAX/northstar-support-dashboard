@@ -1,5 +1,3 @@
-# Built by Jesse Vincent (jdilemmax) - Order Status API
-# Built by Ahmed Abdi Ibrahim (ahmedabdy590-spec) - Returns & Stock APIs
 import sqlite3
 import os
 from typing import Optional
@@ -35,6 +33,7 @@ def get_order(order_id: str):
     
     return dict(order)
 
+# TODO: ahmedabdy590-spec (Ahmed) - Build logic for returns and stock API endpoints.
 @app.get("/api/returns/{order_id}", response_model=ReturnRequest)
 def get_return(order_id: str):
     conn = get_db_connection()

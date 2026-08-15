@@ -1,4 +1,3 @@
-# Built by Aphane Ginah (ginahAphane) - Database Schema & Mock Seed Data
 import sqlite3
 import os
 
@@ -18,6 +17,7 @@ def seed_database():
     cursor.execute("DELETE FROM orders")
     cursor.execute("DELETE FROM products")
 
+    # TODO: ginahAphane (Ginah) - Create the 'returns' and 'products' tables and seed 15+ records.
     # 15 products: id, name, quantity, price
     mock_products = [
         ("P001", "Laptop", 15, 15999.99), ("P002", "Mouse", 50, 299.00), ("P003", "Keyboard", 30, 499.99),

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS orders (
     tracking_number TEXT
 );
 
+-- TODO: ginahAphane (Ginah) - Create the 'returns' and 'products' tables and seed 15+ records.
 CREATE TABLE IF NOT EXISTS products (
     product_id TEXT PRIMARY KEY,
     product_name TEXT NOT NULL,
