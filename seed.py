@@ -74,4 +74,3 @@ def seed_database():
     print("Database seeded successfully with 15+ records in each table.")
 
 seed_database()
-ss
