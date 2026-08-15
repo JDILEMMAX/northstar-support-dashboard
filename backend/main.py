@@ -3,8 +3,7 @@ import os
 from typing import Optional
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from .models import OrderStatus
+from .models import OrderStatus, ReturnRequest, StockItem
 
 app = FastAPI(title="Northstar Support API")
 
@@ -34,24 +33,24 @@ def get_order(order_id: str):
     
     return dict(order)
 
-# TODO: ahmedabdy590-spec (Ahmed) - Build the logic for this endpoint to query the database.
-@app.get("/api/returns/{order_id}")
+@app.get("/api/returns/{order_id}", response_model=ReturnRequest)
 def get_return(order_id: str):
-    return {"message": "Endpoint not implemented yet"}
+    conn = get_db_connection()
+    return_req = conn.execute("SELECT * FROM returns WHERE order_id = ?", (order_id,)).fetchone()
+    conn.close()
+    
+    if return_req is None:
+        raise HTTPException(status_code=404, detail="Return request not found")
+    
+    return dict(return_req)
 
-# TODO: ahmedabdy590-spec (Ahmed) - Build the logic for this endpoint to query the database.
-@app.get("/api/stock/{sku}")
+@app.get("/api/stock/{sku}", response_model=StockItem)
 def get_stock(sku: str):
-    return {"message": "Endpoint not implemented yet"}
-class ReturnRequest(BaseModel):
-    return_id: str
-    order_id: str
-    reason: str
-    status: str
-    request_date: Optional[str] = None
-
-class StockAvailability(BaseModel):
-    product_id: str
-    product_name: str
-    quantity_available: int
-    in_stock: bool
+    conn = get_db_connection()
+    stock = conn.execute("SELECT * FROM products WHERE product_id = ?", (sku,)).fetchone()
+    conn.close()
+    
+    if stock is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    
+    return dict(stock)

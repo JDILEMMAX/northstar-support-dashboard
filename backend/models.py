@@ -8,4 +8,16 @@ class OrderStatus(BaseModel):
     shipping_date: Optional[str] = None
     tracking_number: Optional[str] = None
 
-# TODO: ahmedabdy590-spec (Ahmed) - Create the Returns and Stock models here.
+class ReturnRequest(BaseModel):
+    return_id: str
+    order_id: str
+    reason: str
+    status: str
+    return_date: Optional[str] = None
+
+class StockItem(BaseModel):
+    product_id: str
+    product_name: str
+    quantity: int
+    price: float
+    in_stock: bool
