@@ -1,3 +1,4 @@
+// Built by Silvya Atieno (oswaldsly) & Peter Kuria (peakaykush) - Frontend UI & Fetch Logic
 function openTab(evt, tabName) {
     let i, tabcontent, tablinks;
     

@@ -1,3 +1,5 @@
+# Built by Jesse Vincent (jdilemmax) - Order Status API
+# Built by Ahmed Abdi Ibrahim (ahmedabdy590-spec) - Returns & Stock APIs
 from pydantic import BaseModel
 from typing import Optional
 

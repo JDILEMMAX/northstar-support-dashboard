@@ -1,3 +1,5 @@
+# Built by Jesse Vincent (jdilemmax) - Order Status API
+# Built by Ahmed Abdi Ibrahim (ahmedabdy590-spec) - Returns & Stock APIs
 import sqlite3
 import os
 from typing import Optional
@@ -42,7 +44,11 @@ def get_return(order_id: str):
     if return_req is None:
         raise HTTPException(status_code=404, detail="Return request not found")
     
-    return dict(return_req)
+    # Map status if it doesn't exist in DB
+    result = dict(return_req)
+    if 'status' not in result:
+        result['status'] = "Processing"
+    return result
 
 @app.get("/api/stock/{sku}", response_model=StockItem)
 def get_stock(sku: str):
@@ -53,4 +59,7 @@ def get_stock(sku: str):
     if stock is None:
         raise HTTPException(status_code=404, detail="Product not found")
     
-    return dict(stock)
+    result = dict(stock)
+    if 'in_stock' not in result:
+        result['in_stock'] = result['quantity'] > 0
+    return result
